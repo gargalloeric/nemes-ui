@@ -30,27 +30,32 @@ onMounted(() => {
 
 let fireIcon = new L.Icon({
   iconUrl: 'src/assets/FireIcon.png',
-  iconSize: [100, 100],
-  //iconAnchor: [100, 100],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
+  iconSize: [80, 80]
+});
+
+let cloudIcon = new L.Icon({
+  iconUrl: 'src/assets/Cloud.png',
+  iconSize: [50, 50]
+});
+
+let yellowIcon = new L.Icon({
+  iconUrl: 'src/assets/YellowDot.png',
+  iconSize: [50, 50]
 });
 
 
 let fireMarker = L.marker(latLng([0, 0, 0]),{icon: fireIcon}).bindPopup("Incendio");
+let cloudMarker = L.marker(latLng([0, 0, 0]),{icon: cloudIcon});
+let otherMarker = L.marker(latLng([0, 0, 0]),{icon: yellowIcon});
 
-function setMarker(marker : L.Marker, coords: L.LatLng){
+function setMarker(marker : L.Marker, coords: L.LatLng, message : string){
   if(layerGroup.value)
-    marker.openPopup().setLatLng(coords).addTo(layerGroup.value);
+    marker.bindPopup(message).openPopup().setLatLng(coords).addTo(layerGroup.value);
 
 }
 function onMapClick(){
-  setMarker(fireMarker, latLng([39.98541896850344, -0.05080976072749943]));
+  setMarker(otherMarker, latLng([39.98541896850344, -0.05080976072749943]), "Aviso Meteorológico");
 }
-
-
-
-
 
 </script>
 

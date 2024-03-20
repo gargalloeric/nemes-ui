@@ -8,8 +8,18 @@ const map = ref();
 </script>
 
 <template>
-  <div></div>
+  <label class="form-control w-full max-w-xs">
+    <div class="label">
+      <span class="label-text">Wha</span>
+      <span class="label-text-alt">Top Right label</span>
+    </div>
+    <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" />
+    <div class="label">
+      <span class="label-text-alt">Bottom Left label</span>
+      <span class="label-text-alt">Bottom Right label</span>
+    </div>
+  </label>
   <div class="flex md:flex-row sm:flex-col">
-    <Map class="rounded-lg" :init-lat-lang="initLatLang" :zoom="initZoom" ref="map"></Map>
+    <Map class="rounded-lg h-screen" :init-lat-lang="initLatLang" :zoom="initZoom" ref="map"></Map>
   </div>
 </template>
