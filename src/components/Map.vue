@@ -24,7 +24,6 @@ onMounted(() => {
   }).addTo(map.value);
 
   layerGroup.value = L.layerGroup().addTo(map.value);
-  map.value.on('click', onMapClick);
 
 });
 
@@ -44,18 +43,31 @@ let yellowIcon = new L.Icon({
 });
 
 
-let fireMarker = L.marker(latLng([0, 0, 0]),{icon: fireIcon}).bindPopup("Incendio");
+let fireMarker = L.marker(latLng([0, 0, 0]),{icon: fireIcon});
 let cloudMarker = L.marker(latLng([0, 0, 0]),{icon: cloudIcon});
 let otherMarker = L.marker(latLng([0, 0, 0]),{icon: yellowIcon});
 
-function setMarker(marker : L.Marker, coords: L.LatLng, message : string){
+function setMarker(type: EnumDisasters, coords: L.LatLng, message : string){
+  let marker : L.Marker;
+  switch (type){
+    case EnumDisasters.Fire:
+      marker = fireMarker;
+      break;
+    case EnumDisasters.Meteorological:
+      marker = cloudMarker;
+      break;
+    case EnumDisasters.Other:
+      marker = otherMarker;
+      break;
+  }
   if(layerGroup.value)
     marker.bindPopup(message).openPopup().setLatLng(coords).addTo(layerGroup.value);
 
 }
-function onMapClick(){
-  setMarker(otherMarker, latLng([39.98541896850344, -0.05080976072749943]), "Aviso Meteorológico");
-}
+
+defineExpose({
+  setMarker
+});
 
 </script>
 

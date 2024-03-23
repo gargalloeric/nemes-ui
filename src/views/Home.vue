@@ -3,6 +3,9 @@ import Map from "../components/Map.vue";
 import {ref} from "vue";
 import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
+import {getDisasters} from "../services/ObtainDisasters.ts";
+import {Disaster} from "../model/Disaster.ts";
+import {latLng} from "leaflet";
 
 const initLatLang: L.LatLngExpression = [39.98541896850344, -0.05080976072749943];
 const initZoom: number = 13;
@@ -15,10 +18,30 @@ let checkedMeteo : boolean = true;
 let checkedOthers : boolean = true;
 
 
-
-
 function query(){
-//TODO
+  try {
+    if (checkedFire){
+      let fires : Disaster[] = getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Fire);
+      for (const fire of fires) {
+        map.value.setMarker(EnumDisasters.Fire, latLng(fire.location.lat, fire.location.lon), fire.description)
+      }
+    }
+    if (checkedMeteo){
+      let meteos : Disaster[] = getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Meteorological);
+      for (const meteo of meteos) {
+        map.value.setMarker(EnumDisasters.Meteorological, latLng(meteo.location.lat, meteo.location.lon), meteo.description)
+      }
+    }
+    if (checkedOthers){
+      let others : Disaster[] = getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Other);
+      for (const other of others) {
+        map.value.setMarker(EnumDisasters.Other, latLng(other.location.lat, other.location.lon), other.description)
+      }
+    }
+  }
+  catch (error){
+    console.log(error);
+  }
 }
 
 </script>
