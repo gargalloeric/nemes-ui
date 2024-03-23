@@ -5,7 +5,9 @@ import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
 import {getDisasters} from "../services/ObtainDisasters.ts";
 import {Disaster} from "../model/Disaster.ts";
+import {EnumDisasters} from "../model/EnumDisasters.ts";
 import {latLng} from "leaflet";
+import Alert from "../components/Alert.vue";
 
 const initLatLang: L.LatLngExpression = [39.98541896850344, -0.05080976072749943];
 const initZoom: number = 13;
@@ -17,9 +19,17 @@ let checkedFire : boolean = true;
 let checkedMeteo : boolean = true;
 let checkedOthers : boolean = true;
 
+const unexpectedError = ref(false);
+let datesError = ref(false);
 
 function query(){
+  console.log(EnumDisasters.Fire);
+  datesError.value = false;
   try {
+    if (new Date(initialDate) > new Date(lastDate)){
+      datesError.value = true;
+      return;
+    }
     if (checkedFire){
       let fires : Disaster[] = getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Fire);
       for (const fire of fires) {
@@ -40,6 +50,7 @@ function query(){
     }
   }
   catch (error){
+    unexpectedError.value = true;
     console.log(error);
   }
 }
@@ -47,8 +58,11 @@ function query(){
 </script>
 
 <template>
+
   <NavBar></NavBar>
-  <div class="flex md:flex-row sm:flex-col">
+  <Alert v-if="unexpectedError" msg="No se han encontrado datos para las fechas seleccionadas"></Alert>
+  <Alert v-if="datesError" msg="La fecha inicial no puede ser posterior a la fecha final"></Alert>
+  <div class="flex md:flex-row sm:flex-col mt-2">
     <div class="flex flex-col mr-4 ml-4">
       <form @submit.prevent="query">
       <h2 class="text-2xl">Rango temporal</h2>
