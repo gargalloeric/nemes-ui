@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mathieustan/vue-datepicker": "^0.2.11",
     "leaflet": "^1.9.4",
     "tailwind": "^4.0.0",
     "vue": "^3.4.21",
