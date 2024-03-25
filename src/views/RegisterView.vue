@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import RegisterFormComponent from '../components/RegisterFormComponent.vue'
 import { RegisterQuery } from '../models/RegisterQuery';
+import { BASE_URL } from '../utils/Constants';
 
 async function handleFormQuery(form: RegisterQuery) {
-    const BASE_URL: string = import.meta.env.VITE_BASE_URL
     const REGISTER_URL: string = `${BASE_URL}/nuser/create`
     const resp = await fetch(REGISTER_URL, {
         method: 'POST',
