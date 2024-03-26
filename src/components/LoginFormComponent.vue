@@ -4,7 +4,7 @@ import { LoginQuery } from '../models/LoginQuery';
 const emit = defineEmits(['form-query'])
 
 let form: LoginQuery = {
-    identifier: '',
+    email: '',
     password: ''
 }
 
@@ -21,7 +21,7 @@ function handleSubmit() {
                 <path stroke-linecap="round" stroke-linejoin="round"
                     d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
             </svg>
-            <input type="text" placeholder="Usuario o email" v-model.trim="form.identifier" class="grow" required />
+            <input type="text" placeholder="Email" v-model.trim="form.email" class="grow" required />
         </label>
 
         <label class="input input-bordered flex items-center gap-2 mb-2">

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import LoginFormComponent from '../components/LoginFormComponent.vue';
 import { LoginQuery } from '../models/LoginQuery';
+import { BASE_URL } from '../utils/Constants';
 
 async function handleFormQuery(form: LoginQuery) {
-    const BASE_URL: string = import.meta.env.VITE_BASE_URL
     // TODO: Set login URL
     const LOGIN_URL: string = `${BASE_URL}/nuser/login`
     const resp = await fetch(LOGIN_URL, {
@@ -12,16 +12,16 @@ async function handleFormQuery(form: LoginQuery) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            identifier: form.identifier,
+            email: form.email,
             password: form.password
         })
     })
 
     // TODO: Handle user created and user not created
     if (!resp.ok) {
-        console.log('User not created')
+        console.log('User not logged')
     } else {
-        console.log('User created')
+        console.log('User logged')
     }
 }
 </script>

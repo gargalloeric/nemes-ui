@@ -1,4 +1,4 @@
 export interface LoginQuery {
-    identifier: string,
+    email: string,
     password: string
 }
