@@ -8,6 +8,7 @@ import { BASE_URL } from '../utils/Constants';
 
 const showAlertSuccess: Ref<boolean> = ref(false);
 const showAlertError: Ref<boolean> = ref(false);
+const usrOrEmailError: Ref<boolean> = ref(false)
 let errorMsg: string = '';
 
 async function handleFormQuery(form: RegisterQuery) {
@@ -25,11 +26,13 @@ async function handleFormQuery(form: RegisterQuery) {
         })
     })
 
-    // TODO: Handle user created and user not created
+    // TODO: Improve handling of user created and user not created.
     if (resp.ok) {
         showAlertSuccess.value = true;
     } else {
-        console.log('User not created')
+        errorMsg = "El usuario o correo electrónico ya están en uso."
+        usrOrEmailError.value = true;
+        handleShowError(errorMsg);
     }
 }
 
@@ -55,7 +58,8 @@ function handleShowError(msg: string) {
         <div class="card w-2/4 items-center m-auto">
             <div class="card-body prose">
                 <h2 class="card-title">Register!</h2>
-                <RegisterFormComponent 
+                <RegisterFormComponent
+                :usr-or-email-error="usrOrEmailError"
                 @form-query="handleFormQuery" 
                 @show-error="handleShowError"/>
             </div>
