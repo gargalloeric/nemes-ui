@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { LoginQuery } from '../models/LoginQuery';
 
+const props = defineProps<{
+    showError: boolean
+}>();
+
 const emit = defineEmits(['form-query'])
 
 let form: LoginQuery = {
     email: '',
     password: ''
 }
+let errorMessage: string = 'Usuario o contraseña incorrectos';
 
 function handleSubmit() {
     emit('form-query', form)
@@ -32,6 +37,7 @@ function handleSubmit() {
             </svg>
             <input type="password" placeholder="Contraseña" v-model.trim="form.password" class="grow" required />
         </label>
+        <p v-if="props.showError" class="text-red-500">{{ errorMessage }}</p>
 
         <button class="btn btn-primary btn-block mt-5">Login</button>
     </form>

@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { Ref, ref } from 'vue';
 import LoginFormComponent from '../components/LoginFormComponent.vue';
 import { LoginQuery } from '../models/LoginQuery';
 import { BASE_URL } from '../utils/Constants';
+
+const showError: Ref<boolean> = ref(false)
 
 async function handleFormQuery(form: LoginQuery) {
     // TODO: Set login URL
@@ -17,8 +20,9 @@ async function handleFormQuery(form: LoginQuery) {
         })
     })
 
-    // TODO: Handle user created and user not created
+    // TODO: Handle user logged and user not logged
     if (!resp.ok) {
+        showError.value = true;
         console.log('User not logged')
     } else {
         console.log('User logged')
@@ -31,7 +35,9 @@ async function handleFormQuery(form: LoginQuery) {
         <div class="card w-2/4 items-center m-auto">
             <div class="card-body prose">
                 <h2 class="card-title">Login!</h2>
-                <LoginFormComponent @form-query="handleFormQuery" />
+                <LoginFormComponent
+                :showError="showError"
+                @form-query="handleFormQuery"/>
             </div>
         </div>
     </div>
