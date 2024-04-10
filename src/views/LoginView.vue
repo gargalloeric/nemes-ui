@@ -3,8 +3,10 @@ import { Ref, ref } from 'vue';
 import LoginFormComponent from '../components/LoginFormComponent.vue';
 import { LoginQuery } from '../models/LoginQuery';
 import { BASE_URL } from '../utils/Constants';
+import { useTokenStore } from '../stores/token';
 
 const showError: Ref<boolean> = ref(false)
+const store = useTokenStore()
 
 async function handleFormQuery(form: LoginQuery) {
     // TODO: Set login URL
@@ -23,9 +25,10 @@ async function handleFormQuery(form: LoginQuery) {
     // TODO: Handle user logged and user not logged
     if (!resp.ok) {
         showError.value = true;
-        console.log('User not logged')
     } else {
-        console.log('User logged')
+        const token = await resp.text()
+        store.token = token
+        console.log(store.token)
     }
 }
 </script>
