@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
 import RegisterView from './views/RegisterView.vue'
 import LoginView from './views/LoginView.vue'
 
-const routes = [
+const routes: RouteRecordRaw[] = [
     {
         path: '/register',
         component: RegisterView
@@ -10,7 +10,7 @@ const routes = [
     {
         path: '/login',
         component: LoginView
-    }
+        }
 ]
 
 export const router = createRouter({
