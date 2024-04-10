@@ -27,7 +27,7 @@ async function handleFormQuery(form: LoginQuery) {
         showError.value = true;
     } else {
         const token = await resp.text()
-        store.token = token
+        store.setToken(token)
         console.log(store.token)
     }
 }
