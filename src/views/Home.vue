@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import Map from "../components/Map.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
-import {getDisasters} from "../services/ObtainDisasters.ts";
+import {getDisasters, getRecentDisasters} from "../services/ObtainDisasters.ts";
 import {Disaster} from "../model/Disaster.ts";
 import {EnumDisasters} from "../model/EnumDisasters.ts";
 import {latLng} from "leaflet";
@@ -22,7 +22,15 @@ let checkedOthers : boolean = true;
 const unexpectedError = ref(false);
 let datesError = ref(false);
 
-function query(){
+onMounted(async() => {
+  const disasters : Disaster[] = await  getRecentDisasters();
+  console.log(disasters);
+  for(const disaster of disasters){
+    map.value.setMarker(disaster.type, latLng([disaster.location.lat, disaster.location.lon]), disaster.name);
+  }
+});
+
+async function query(){
   console.log(EnumDisasters.Fire);
   datesError.value = false;
   try {
@@ -31,19 +39,19 @@ function query(){
       return;
     }
     if (checkedFire){
-      let fires : Disaster[] = getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Fire);
+      let fires : Disaster[] = await getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Fire);
       for (const fire of fires) {
         map.value.setMarker(EnumDisasters.Fire, latLng(fire.location.lat, fire.location.lon), fire.description)
       }
     }
     if (checkedMeteo){
-      let meteos : Disaster[] = getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Meteorological);
+      let meteos : Disaster[] = await getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Meteorological);
       for (const meteo of meteos) {
         map.value.setMarker(EnumDisasters.Meteorological, latLng(meteo.location.lat, meteo.location.lon), meteo.description)
       }
     }
     if (checkedOthers){
-      let others : Disaster[] = getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Other);
+      let others : Disaster[] = await getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Other);
       for (const other of others) {
         map.value.setMarker(EnumDisasters.Other, latLng(other.location.lat, other.location.lon), other.description)
       }

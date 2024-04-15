@@ -2,6 +2,7 @@
 import L, {geoJSON, latLng, LayerGroup, layerGroup, LeafletMouseEvent, Map} from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {onMounted, ref} from 'vue';
+import {EnumDisasters} from "../model/EnumDisasters.ts";
 
 const props = defineProps<{
   initLatLang: L.LatLngExpression,
@@ -43,25 +44,25 @@ let yellowIcon = new L.Icon({
 });
 
 
-let fireMarker = L.marker(latLng([0, 0, 0]),{icon: fireIcon});
-let cloudMarker = L.marker(latLng([0, 0, 0]),{icon: cloudIcon});
-let otherMarker = L.marker(latLng([0, 0, 0]),{icon: yellowIcon});
-
 function setMarker(type: EnumDisasters, coords: L.LatLng, message : string){
-  let marker : L.Marker;
-  switch (type){
+  let icon : L.Icon;
+  /*switch (type){
     case EnumDisasters.Fire:
-      marker = fireMarker;
+      icon = fireIcon;
       break;
     case EnumDisasters.Meteorological:
-      marker = cloudMarker;
+      icon = cloudIcon;
       break;
     case EnumDisasters.Other:
-      marker = otherMarker;
+      icon = yellowIcon;
       break;
+  }*/
+  icon = cloudIcon
+  let marker : L.Marker = L.marker(latLng([coords.lat, coords.lng, 0]),{icon: icon}).bindPopup(message);
+  if(layerGroup.value){
+    marker.openPopup().addTo(layerGroup.value);
+    console.log("holas")
   }
-  if(layerGroup.value)
-    marker.bindPopup(message).openPopup().setLatLng(coords).addTo(layerGroup.value);
 
 }
 
