@@ -19,7 +19,9 @@
                 </div>
             </div>
             <div class="navbar-center">
-                <a class="btn btn-ghost text-xl">NEMES</a>
+                <RouterLink to="/">
+                    <span class="btn btn-ghost text-xl">NEMES</span>
+                </RouterLink>
             </div>
             <div class="navbar-end">
                 
