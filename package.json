@@ -11,6 +11,7 @@
   "dependencies": {
     "leaflet": "^1.9.4",
     "tailwind": "^4.0.0",
+    "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
@@ -23,7 +24,7 @@
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
-    "vite": "^5.1.6",
+    "vite": "^5.2.6",
     "vue-tsc": "^1.8.27"
   }
 }
