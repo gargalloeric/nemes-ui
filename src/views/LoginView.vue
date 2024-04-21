@@ -37,7 +37,7 @@ async function handleFormQuery(form: LoginQuery) {
     <div class="h-full flex flex-col align-center ">
         <div class="card w-2/4 items-center m-auto">
             <div class="card-body prose">
-                <h2 class="card-title">Login!</h2>
+                <h2 class="card-title">Inicio de Sesión</h2>
                 <LoginFormComponent
                 :showError="showError"
                 @form-query="handleFormQuery"/>
