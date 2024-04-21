@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Map from "../components/Map.vue";
 import {onMounted, ref} from "vue";
-import NavBar from "../components/NavBar.vue";
 import Footer from "../components/Footer.vue";
 import {getDisasters, getRecentDisasters} from "../services/ObtainDisasters.ts";
 import {Disaster} from "../model/Disaster.ts";
@@ -66,8 +65,6 @@ async function query(){
 </script>
 
 <template>
-
-  <NavBar></NavBar>
   <Alert v-if="unexpectedError" msg="No se han encontrado datos para las fechas seleccionadas"></Alert>
   <Alert v-if="datesError" msg="La fecha inicial no puede ser posterior a la fecha final"></Alert>
   <div class="flex md:flex-row sm:flex-col mt-2">

@@ -57,7 +57,7 @@ function handleShowError(msg: string) {
     <div class="h-full flex flex-col align-center ">
         <div class="card w-2/4 items-center m-auto">
             <div class="card-body prose">
-                <h2 class="card-title">Register!</h2>
+                <h2 class="card-title">Registro de usuario</h2>
                 <RegisterFormComponent
                 :usr-or-email-error="usrOrEmailError"
                 @form-query="handleFormQuery" 
