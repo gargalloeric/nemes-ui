@@ -3,7 +3,7 @@ import { Ref, ref } from 'vue';
 import RegisterFormComponent from '../components/RegisterFormComponent.vue'
 import SuccessAlertComponent from '../components/SuccessAlertComponent.vue'
 import ErrorAlertComponent from '../components/ErrorAlertComponent.vue'
-import { RegisterQuery } from '../models/RegisterQuery';
+import { RegisterQuery } from '../queries/RegisterQuery';
 import { BASE_URL } from '../utils/Constants';
 
 const showAlertSuccess: Ref<boolean> = ref(false);
@@ -65,4 +65,4 @@ function handleShowError(msg: string) {
             </div>
         </div>
     </div>
-</template>
+</template>../queries/RegisterQuery

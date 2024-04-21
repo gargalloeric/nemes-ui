@@ -1,4 +1,5 @@
-import { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw, createRouter, createWebHistory } from 'vue-router'
+import { NavigationGuardNext, RouteLocationNormalized, RouteRecordRaw,createRouter, createWebHistory} from "vue-router";
+import Home from "./views/Home.vue";
 import RegisterView from './views/RegisterView.vue'
 import LoginView from './views/LoginView.vue'
 import { useTokenStore } from './stores/token'
@@ -14,7 +15,12 @@ function checkIfLoggedIn(_to: RouteLocationNormalized, _from: RouteLocationNorma
     }
 }
 
-const routes: RouteRecordRaw[] = [
+const  routes: RouteRecordRaw[] = [
+    {
+        path: "/",
+        name: "Home",
+        component: Home
+    },
     {
         path: '/register',
         name: 'register',
@@ -33,7 +39,9 @@ const routes: RouteRecordRaw[] = [
     }
 ]
 
-export const router = createRouter({
+const router = createRouter({
     history: createWebHistory(),
-    routes
-})
+    routes,
+});
+
+export default router;

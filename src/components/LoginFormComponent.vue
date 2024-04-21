@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LoginQuery } from '../models/LoginQuery';
+import { LoginQuery } from '../queries/LoginQuery';
 
 const props = defineProps<{
     showError: boolean
@@ -41,4 +41,4 @@ function handleSubmit() {
 
         <button class="btn btn-primary btn-block mt-5">Login</button>
     </form>
-</template>
+</template>../queries/LoginQuery

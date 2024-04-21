@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
 import LoginFormComponent from '../components/LoginFormComponent.vue';
-import { LoginQuery } from '../models/LoginQuery';
+import { LoginQuery } from '../queries/LoginQuery';
 import { BASE_URL } from '../utils/Constants';
 import { useTokenStore } from '../stores/token';
 
@@ -44,4 +44,4 @@ async function handleFormQuery(form: LoginQuery) {
             </div>
         </div>
     </div>
-</template>
+</template>../queries/LoginQuery
