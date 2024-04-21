@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LoginQuery } from '../models/LoginQuery';
+import { LoginQuery } from '../queries/LoginQuery';
 
 const props = defineProps<{
     showError: boolean

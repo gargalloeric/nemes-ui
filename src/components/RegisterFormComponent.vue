@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
-import { RegisterQuery } from '../models/RegisterQuery';
+import { RegisterQuery } from '../queries/RegisterQuery';
 
 const props = defineProps<{
     usrOrEmailError: boolean
