@@ -10,9 +10,13 @@
                                 d="M4 6h16M4 12h16M4 18h7" />
                         </svg>
                     </div>
+
                     <ul tabindex="0"
                         class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                         <li><a>Homepage</a></li>
+                        <RouterLink to="/registerZoneOfInterest">
+                          <li><a>Register area of interest</a></li>
+                        </RouterLink>
                         <li><a>Portfolio</a></li>
                         <li><a>About</a></li>
                     </ul>
@@ -29,3 +33,5 @@
         </div>
     </nav>
 </template>
+<script setup lang="ts">
+</script>
