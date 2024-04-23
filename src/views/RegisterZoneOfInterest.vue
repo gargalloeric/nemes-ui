@@ -2,14 +2,9 @@
 import Map from "../components/Map.vue";
 import {onMounted, ref} from "vue";
 import Footer from "../components/Footer.vue";
-import {getDisasters, getRecentDisasters} from "../services/ObtainDisasters.ts";
-import {Disaster} from "../model/Disaster.ts";
-import {EnumDisasters} from "../model/EnumDisasters.ts";
-import {latLng} from "leaflet";
-import Alert from "../components/Alert.vue";
 
-const initLatLang: L.LatLngExpression = [39.98541896850344, -0.05080976072749943];
-const initZoom: number = 13;
+const initLatLang: L.LatLngExpression = [40.415361175393144, -3.701523140526825];
+const initZoom: number = 6;
 const map = ref();
 
 
