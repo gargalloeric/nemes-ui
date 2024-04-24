@@ -9,10 +9,9 @@ const map = ref();
 
 
 onMounted(async() => {
-
+  console.log("hola");
+  map.value.setZones();
 });
-
-
 
 </script>
 

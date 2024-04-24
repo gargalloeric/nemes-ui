@@ -3,6 +3,7 @@ import L, {geoJSON, latLng, LayerGroup, layerGroup, LeafletMouseEvent, Map} from
 import "leaflet/dist/leaflet.css";
 import {onMounted, ref} from 'vue';
 import {EnumDisasters} from "../model/EnumDisasters.ts";
+import {zonesData} from "../utils/data.ts";
 
 const props = defineProps<{
   initLatLang: L.LatLngExpression,
@@ -11,6 +12,7 @@ const props = defineProps<{
 
 const map = ref<Map>();
 const layerGroup = ref<LayerGroup>();
+let geoJson;
 
 onMounted(() => {
    map.value = L.map("map", {
@@ -27,6 +29,15 @@ onMounted(() => {
   layerGroup.value = L.layerGroup().addTo(map.value);
 
 });
+
+function onEachFeature(feature, layer) {
+  layer.on({
+    mouseover: highlightFeature,
+    mouseout: resetHighlight,
+    click: zoomToFeature
+  });
+}
+
 
 let fireIcon = new L.Icon({
   iconUrl: 'src/assets/FireIcon.png',
@@ -63,11 +74,39 @@ function setMarker(type: EnumDisasters, coords: L.LatLng, message : string){
     marker.openPopup().addTo(layerGroup.value);
     console.log("holas")
   }
+}
+
+function setZones(){
+  geoJson = L.geoJson(zonesData, {
+    onEachFeature: onEachFeature
+  }).addTo(map.value);
 
 }
 
+function highlightFeature(e) {
+  let layer = e.target;
+
+  layer.setStyle({
+    weight: 5,
+    color: '#666',
+    dashArray: '',
+    fillOpacity: 0.7
+  });
+
+  layer.bringToFront();
+}
+
+function resetHighlight(e) {
+  geoJson.resetStyle(e.target);
+}
+
+function zoomToFeature(e) {
+  map.value.fitBounds(e.target.getBounds());
+}
+
 defineExpose({
-  setMarker
+  setMarker,
+  setZones
 });
 
 </script>
