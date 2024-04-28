@@ -36,7 +36,7 @@ function onEachFeature(feature, layer) {
   layer.on({
     mouseover: highlightFeature,
     mouseout: resetHighlight,
-    click: zoomToFeature
+    click: selectFeature
   });
 }
 
@@ -101,7 +101,7 @@ function resetHighlight(e) {
     geoJson.resetStyle(e.target);
 }
 
-function zoomToFeature(e) {
+function selectFeature(e) {
   //map.value.fitBounds(e.target.getBounds());
   let indx = selected.indexOf(e.target.feature.id);
   if (indx > -1) {
@@ -119,12 +119,16 @@ function zoomToFeature(e) {
     });
     layer.bringToFront();
   }
+}
 
+function getSelected(){
+  return selected;
 }
 
 defineExpose({
   setMarker,
-  setZones
+  setZones,
+  getSelected
 });
 
 </script>
