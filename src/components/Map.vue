@@ -14,6 +14,8 @@ const map = ref<Map>();
 const layerGroup = ref<LayerGroup>();
 let geoJson;
 
+let selected = [];
+
 onMounted(() => {
    map.value = L.map("map", {
     center: props.initLatLang,
@@ -37,7 +39,6 @@ function onEachFeature(feature, layer) {
     click: zoomToFeature
   });
 }
-
 
 let fireIcon = new L.Icon({
   iconUrl: 'src/assets/FireIcon.png',
@@ -72,7 +73,6 @@ function setMarker(type: EnumDisasters, coords: L.LatLng, message : string){
   let marker : L.Marker = L.marker(latLng([coords.lat, coords.lng, 0]),{icon: icon}).bindPopup(message);
   if(layerGroup.value){
     marker.openPopup().addTo(layerGroup.value);
-    console.log("holas")
   }
 }
 
@@ -92,16 +92,34 @@ function highlightFeature(e) {
     dashArray: '',
     fillOpacity: 0.7
   });
-
   layer.bringToFront();
 }
 
 function resetHighlight(e) {
-  geoJson.resetStyle(e.target);
+  let indx = selected.indexOf(e.target.feature.id);
+  if (indx <= -1)
+    geoJson.resetStyle(e.target);
 }
 
 function zoomToFeature(e) {
-  map.value.fitBounds(e.target.getBounds());
+  //map.value.fitBounds(e.target.getBounds());
+  let indx = selected.indexOf(e.target.feature.id);
+  if (indx > -1) {
+    selected.splice(indx, 1);
+    geoJson.resetStyle(e.target);
+  }
+  else{
+    selected.push(e.target.feature.id);
+    let layer = e.target;
+    layer.setStyle({
+      weight: 5,
+      color: '#ffa500',
+      dashArray: '',
+      fillOpacity: 0.7
+    });
+    layer.bringToFront();
+  }
+
 }
 
 defineExpose({
