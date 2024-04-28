@@ -85,14 +85,16 @@ function setZones(){
 
 function highlightFeature(e) {
   let layer = e.target;
-
-  layer.setStyle({
-    weight: 5,
-    color: '#666',
-    dashArray: '',
-    fillOpacity: 0.7
-  });
+  let indx = selected.indexOf(e.target.feature.id);
+  if (indx <= -1){
+    layer.setStyle({
+      weight: 5,
+      color: '#666',
+      dashArray: '',
+      fillOpacity: 0.7
+    });
   layer.bringToFront();
+  }
 }
 
 function resetHighlight(e) {
