@@ -44,4 +44,4 @@ async function handleFormQuery(form: LoginQuery) {
             </div>
         </div>
     </div>
-</template>../queries/LoginQuery
+</template>
