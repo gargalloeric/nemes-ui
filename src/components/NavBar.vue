@@ -28,7 +28,11 @@
                 </RouterLink>
             </div>
             <div class="navbar-end">
-                
+                <RouterLink to="/login">
+                    <a class="btn">
+                        Inicia sesión
+                    </a>
+                </RouterLink>
             </div>
         </div>
     </nav>

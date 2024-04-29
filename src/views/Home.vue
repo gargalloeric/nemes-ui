@@ -100,7 +100,7 @@ async function query(){
         </div>
       </form>
     </div>
-    <Map class="rounded-lg h-screen" :init-lat-lang="initLatLang" :zoom="initZoom" ref="map"></Map>
+    <Map class="rounded-lg h-screen mx-5" :init-lat-lang="initLatLang" :zoom="initZoom" ref="map"></Map>
   </div>
 
   <Footer></Footer>
