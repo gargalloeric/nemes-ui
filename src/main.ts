@@ -7,6 +7,7 @@ import {BASE_URL} from "./utils/Constants.ts";
 import {Disaster} from "./model/Disaster.ts";
 import {EnumDisasters} from "./model/EnumDisasters.ts";
 import {Coordinates} from "./model/Coordinates.ts";
+import {setZonesData, zonesData} from "./utils/data.ts";
 
 const pinia = createPinia()
 const app = createApp(App)
@@ -21,21 +22,23 @@ const resp = await fetch(REGISTER_URL, {
     method: 'GET'
 })
 const data = await resp.json();
-/*
-let disasters: Disaster[] = [];
+setZonesData(convertToJson(data));
 
-for (const key in data) {
-    let _data = data[key];
-    console.log(_data.event);
-    disasters.push(
-        new Disaster(_data.name,
-            _data.description,
-            _data.event.severity,
-            _data.startDate,
-            _data.lastValidDate,
-            EnumDisasters[ _data.event.eventName as keyof typeof EnumDisasters],
-            new Coordinates(_data.zone.center.lat, _data.zone.center.lon),
-            _data.zone.radius));
+function convertToJson(inputData) {
+    let outputData = {
+        "type": "FeatureCollection",
+        "features": []
+    };
+    inputData.forEach(item => {
+        let feature = {
+            "type": "Feature",
+            "id": [item.centerLon, item.centerLat], // id as center lat and lon
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [item.polygons.map(polygon => [polygon.lon, polygon.lat])] // mapping polygons to coordinates
+            }
+        };
+        outputData.features.push(feature);
+    });
+    return outputData;
 }
-console.log(disasters);
-return disasters;*/
