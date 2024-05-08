@@ -4,9 +4,11 @@ import LoginFormComponent from '../components/LoginFormComponent.vue';
 import { LoginQuery } from '../queries/LoginQuery';
 import { BASE_URL } from '../utils/Constants';
 import { useTokenStore } from '../stores/token';
+import { useUserStore } from "../stores/user";
 
 const showError: Ref<boolean> = ref(false)
-const store = useTokenStore()
+const tokenStore = useTokenStore()
+const userStore = useUserStore()
 
 async function handleFormQuery(form: LoginQuery) {
     // TODO: Set login URL
@@ -27,8 +29,8 @@ async function handleFormQuery(form: LoginQuery) {
         showError.value = true;
     } else {
         const token = await resp.text()
-        store.setToken(token)
-        console.log(store.token)
+        tokenStore.setToken(token)
+        userStore.loadUser()
     }
 }
 </script>
@@ -44,4 +46,4 @@ async function handleFormQuery(form: LoginQuery) {
             </div>
         </div>
     </div>
-</template>../queries/LoginQuery
+</template>
