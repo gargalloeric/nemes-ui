@@ -73,5 +73,5 @@ defineExpose({
 </script>
 
 <template>
-  <div id="map" style="height: 80vh; width: 100%;"></div>
+  <div id="map" style="height: 80vh; width: 100%; z-index: 1;"></div>
 </template>
