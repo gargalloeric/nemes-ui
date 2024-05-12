@@ -16,7 +16,7 @@ export async function saveZoneOfInterest(selected : Coordinates[], selectedEvent
         body: JSON.stringify({
             centerLat: selected[0].lon,
             centerLon: selected[0].lat,
-            eventsSeverity: ["Minor"],
+            eventsSeverity: ["Minor", "Minor"],
             eventsName: selectedEvents
         })
     });
