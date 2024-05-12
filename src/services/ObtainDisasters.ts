@@ -22,7 +22,7 @@ export async function getRecentDisasters(): Promise<Disaster[]>{
                 _data.startDate,
                 _data.lastValidDate,
                 EnumDisasters[ _data.event.eventName as keyof typeof EnumDisasters],
-                new Coordinates(_data.zone.center.lat, _data.zone.center.lon),
+                new Coordinates(_data.zone.centre.lat, _data.zone.centre.lon),
                 _data.zone.radius));
     }
     console.log(disasters);

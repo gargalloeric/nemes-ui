@@ -41,6 +41,7 @@ const  routes: RouteRecordRaw[] = [
     {
         path: '/registerZoneOfInterest',
         name: '/registerZoneOfInterest',
+        beforeEnter: [checkIfLoggedIn],
         component: RegisterZoneOfInterest
     }
 ]

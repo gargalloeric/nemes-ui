@@ -2,6 +2,7 @@
 import Map from "../components/Map.vue";
 import {Ref, onMounted, ref} from "vue";
 import {saveZoneOfInterest} from "../services/SaveZoneOfInterest.ts";
+import {Coordinates} from "../model/Coordinates.ts";
 
 const initLatLang: L.LatLngExpression = [40.415361175393144, -3.701523140526825];
 const initZoom: number = 6;
@@ -20,6 +21,11 @@ onMounted(async() => {
 
 function save(){
   let selected = map.value.getSelected();
+  let selected_ : Coordinates[] = [];
+  for (const cor of selected) {
+    const myArray = cor.toString().split(",");
+    selected_.push(new Coordinates(myArray[0], myArray[1]));
+  }
   let selectedEvents: string[] = [];
 
   if (selected.length == 0 || !isSomethingSelected()) {
@@ -33,7 +39,7 @@ function save(){
     if (checkedRain.value) selectedEvents.push("Lluvias");
     if (checkedStorm.value) selectedEvents.push("Tormentas");
     if (checkedFog.value) selectedEvents.push("Nieblas");
-    saveZoneOfInterest(selected, selectedEvents);
+    saveZoneOfInterest(selected_, selectedEvents);
   }
 }
 

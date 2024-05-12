@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import L, {geoJSON, latLng, LayerGroup, layerGroup, LeafletMouseEvent, Map} from "leaflet";
+import L, {geoJSON, LatLng, latLng, LayerGroup, layerGroup, LeafletMouseEvent, Map} from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {onMounted, ref} from 'vue';
 import {EnumDisasters} from "../model/EnumDisasters.ts";
 import {zonesData} from "../utils/data.ts";
+import {Coordinates} from "../model/Coordinates.ts";
 
 const props = defineProps<{
   initLatLang: L.LatLngExpression,
@@ -14,7 +15,7 @@ const map = ref<Map>();
 const layerGroup = ref<LayerGroup>();
 let geoJson;
 
-let selected = [];
+let selected : [] = [];
 
 onMounted(() => {
    map.value = L.map("map", {
@@ -80,7 +81,6 @@ function setZones(){
   geoJson = L.geoJson(zonesData, {
     onEachFeature: onEachFeature
   }).addTo(map.value);
-
 }
 
 function highlightFeature(e) {
@@ -105,13 +105,15 @@ function resetHighlight(e) {
 
 function selectFeature(e) {
   //map.value.fitBounds(e.target.getBounds());
-  let indx = selected.indexOf(e.target.feature.id);
+  let id = e.target.feature.id;
+
+  let indx = selected.indexOf(id);
   if (indx > -1) {
     selected.splice(indx, 1);
     geoJson.resetStyle(e.target);
   }
   else{
-    selected.push(e.target.feature.id);
+    selected.push(id);
     let layer = e.target;
     layer.setStyle({
       weight: 5,
