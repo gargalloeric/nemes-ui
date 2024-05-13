@@ -41,40 +41,50 @@ function onEachFeature(feature, layer) {
   });
 }
 
-let fireIcon = new L.Icon({
-  iconUrl: 'src/assets/FireIcon.png',
+let windIcon = new L.Icon({
+  iconUrl: 'src/assets/Wind.jpg',
   iconSize: [80, 80]
 });
 
-let cloudIcon = new L.Icon({
-  iconUrl: 'src/assets/Cloud.png',
+let rainIcon = new L.Icon({
+  iconUrl: 'src/assets/Rain.png',
   iconSize: [50, 50]
 });
 
-let yellowIcon = new L.Icon({
-  iconUrl: 'src/assets/YellowDot.png',
+let fogIcon = new L.Icon({
+  iconUrl: 'src/assets/Fog.png',
+  iconSize: [50, 50]
+});
+
+let snowIcon = new L.Icon({
+  iconUrl: 'src/assets/Snow.jpg',
   iconSize: [50, 50]
 });
 
 
-function setMarker(type: EnumDisasters, coords: L.LatLng, message : string){
+function setMarker(type: string, coords: L.LatLng, message : string){
   let icon : L.Icon;
-  /*switch (type){
-    case EnumDisasters.Fire:
-      icon = fireIcon;
+  switch (type){
+    case "Lluvias":
+      icon = rainIcon;
       break;
-    case EnumDisasters.Meteorological:
-      icon = cloudIcon;
+    case "Nevadas":
+      icon = snowIcon;
       break;
-    case EnumDisasters.Other:
-      icon = yellowIcon;
+    case "Nieblas":
+      icon = fogIcon;
       break;
-  }*/
-  icon = cloudIcon
-  let marker : L.Marker = L.marker(latLng([coords.lat, coords.lng, 0]),{icon: icon}).bindPopup(message);
-  if(layerGroup.value){
-    marker.openPopup().addTo(layerGroup.value);
+    case "Vientos":
+      icon = windIcon;
+      break;
   }
+  if (icon != null){
+    let marker : L.Marker = L.marker(latLng([coords.lat, coords.lng, 0]),{icon: icon}).bindPopup(message);
+    if(layerGroup.value){
+      marker.openPopup().addTo(layerGroup.value);
+    }
+  }
+
 }
 
 function setZones(){
