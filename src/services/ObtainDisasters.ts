@@ -14,14 +14,13 @@ export async function getRecentDisasters(): Promise<Disaster[]>{
 
     for (const key in data) {
         let _data = data[key];
-        console.log(_data.event);
         disasters.push(
             new Disaster(_data.name,
                 _data.description,
                 _data.event.severity,
                 _data.startDate,
                 _data.lastValidDate,
-                EnumDisasters[ _data.event.eventName as keyof typeof EnumDisasters],
+                _data.event.eventName,
                 new Coordinates(_data.zone.centerLat, _data.zone.centerLon),
                 _data.zone.radius));
     }

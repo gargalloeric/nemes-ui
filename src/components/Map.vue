@@ -42,7 +42,7 @@ function onEachFeature(feature, layer) {
 }
 
 let windIcon = new L.Icon({
-  iconUrl: 'src/assets/Wind.jpg',
+  iconUrl: 'src/assets/Wind.png',
   iconSize: [80, 80]
 });
 
@@ -57,32 +57,57 @@ let fogIcon = new L.Icon({
 });
 
 let snowIcon = new L.Icon({
-  iconUrl: 'src/assets/Snow.jpg',
+  iconUrl: 'src/assets/Snow.png',
   iconSize: [50, 50]
 });
 
 
 function setMarker(type: string, coords: L.LatLng, message : string){
   let icon : L.Icon;
-  switch (type){
+  /*switch (type){
     case "Lluvias":
       icon = rainIcon;
+      console.log("lluvia");
       break;
     case "Nevadas":
       icon = snowIcon;
+      console.log("nieve");
       break;
     case "Nieblas":
       icon = fogIcon;
+      console.log("niebla");
       break;
     case "Vientos":
       icon = windIcon;
+      console.log("viento");
+      break;
+  }*/
+  let linkImage: string;
+  switch(type){
+
+    case "Lluvias":
+      linkImage = 'src/assets/Rain.png'
+      break;
+    case "Nevadas":
+      linkImage = 'src/assets/Snow.png'
+      break;
+    case "Nieblas":
+      linkImage = 'src/assets/Fog.png'
+      break;
+    case "Vientos":
+      linkImage = 'src/assets/Wind.png'
       break;
   }
-  if (icon != null){
-    let marker : L.Marker = L.marker(latLng([coords.lat, coords.lng, 0]),{icon: icon}).bindPopup(message);
-    if(layerGroup.value){
-      marker.openPopup().addTo(layerGroup.value);
-    }
+  if (linkImage != null){
+    let latLngBounds = L.latLngBounds([coords, [coords.lat + 0.1, coords.lng + 0.15]]);
+
+    let imageOverlay = L.imageOverlay(linkImage, latLngBounds, {
+      opacity: 1,
+      interactive: true
+    }).addTo(map.value);
+    /*if(layerGroup.value){
+      marker.addTo(layerGroup.value);
+    }*/
   }
 
 }

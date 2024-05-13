@@ -23,10 +23,10 @@ let datesError = ref(false);
 
 onMounted(async () => {
   const disasters: Disaster[] = await getRecentDisasters();
-  console.log(disasters);
   for(const disaster of disasters){
-    map.value.setMarker(disaster.type.toString(), latLng([disaster.location.lat, disaster.location.lon]), disaster.name);
+    map.value.setMarker(disaster.type, latLng([disaster.location.lat, disaster.location.lon]), disaster.name);
   }
+  console.log("representados");
 });
 
 async function query() {
