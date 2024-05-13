@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Map from "../components/Map.vue";
-import { onMounted, ref } from "vue";
+import {onMounted, Ref, ref} from "vue";
 import Footer from "../components/Footer.vue";
 import { getDisasters, getRecentDisasters } from "../services/ObtainDisasters.ts";
 import { Disaster } from "../model/Disaster.ts";
@@ -14,9 +14,13 @@ const map = ref();
 
 let lastDate: Date;
 let initialDate: Date;
-let checkedFire: boolean = true;
-let checkedMeteo: boolean = true;
-let checkedOthers: boolean = true;
+const checkedCoast: Ref<boolean> = ref(false);
+const checkedWind: Ref<boolean> = ref(false);
+const checkedSnow: Ref<boolean> = ref(false);
+const checkedRain: Ref<boolean> = ref(false);
+const checkedStorm: Ref<boolean> = ref(false);
+const checkedFog: Ref<boolean> = ref(false);
+const isSaved: Ref<boolean> = ref(false);
 
 const unexpectedError = ref(false);
 let datesError = ref(false);
@@ -83,40 +87,34 @@ async function query() {
         <div class="form-control">
           <h2 class="text-2xl">Tipos</h2>
           <label class="label cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-rain" width="28"
-              height="28" viewBox="0 0 24 24" stroke-width="1" stroke="#2c3e50" fill="none" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7" />
-              <path d="M11 13v2m0 3v2m4 -5v2m0 3v2" />
-            </svg>
-            <span class="label-text">Meteorológicas</span>
-            <input type="checkbox" v-model="checkedMeteo" class="checkbox checkbox-xs" />
+            <img src="../assets/YellowDot.png" alt="fenómenos costeros" width="28" height="28">
+            <span class="label-text">Fenomenos costeros</span>
+            <input type="checkbox" v-model="checkedCoast" class="checkbox checkbox-xs" />
           </label>
           <label class="label cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-campfire" width="28" height="28"
-              viewBox="0 0 24 24" stroke-width="1" stroke="#2c3e50" fill="none" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M4 21l16 -4" />
-              <path d="M20 21l-16 -4" />
-              <path d="M12 15a4 4 0 0 0 4 -4c0 -3 -2 -3 -2 -8c-4 2 -6 5 -6 8a4 4 0 0 0 4 4z" />
-            </svg>
-            <span class="label-text">Incendios</span>
-            <input type="checkbox" v-model="checkedFire" class="checkbox checkbox-xs" />
+            <img src="../assets/Wind.png" alt="vientos" width="28" height="28">
+            <span class="label-text">Vientos</span>
+            <input type="checkbox" v-model="checkedWind" class="checkbox checkbox-xs" />
           </label>
           <label class="label cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-help-hexagon" width="28"
-              height="28" viewBox="0 0 24 24" stroke-width="1" stroke="#2c3e50" fill="none" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path
-                d="M19.875 6.27c.7 .398 1.13 1.143 1.125 1.948v7.284c0 .809 -.443 1.555 -1.158 1.948l-6.75 4.27a2.269 2.269 0 0 1 -2.184 0l-6.75 -4.27a2.225 2.225 0 0 1 -1.158 -1.948v-7.285c0 -.809 .443 -1.554 1.158 -1.947l6.75 -3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98h-.033z" />
-              <path d="M12 16v.01" />
-              <path d="M12 13a2 2 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483" />
-            </svg>
-            <span class="label-text">Otras</span>
-            <input type="checkbox" v-model="checkedOthers" class="checkbox checkbox-xs" />
+            <img src="../assets/Fog.png" alt="nieblas" width="28" height="28">
+            <span class="label-text">Niebla</span>
+            <input type="checkbox" v-model="checkedFog" class="checkbox checkbox-xs" />
+          </label>
+          <label class="label cursor-pointer">
+            <img src="../assets/Snow.png" alt="nevadas" width="28" height="28">
+            <span class="label-text">Nevadas</span>
+            <input type="checkbox" v-model="checkedSnow" class="checkbox checkbox-xs" />
+          </label>
+          <label class="label cursor-pointer">
+            <img src="../assets/Storm.png" alt="tormentas" width="28" height="28">
+            <span class="label-text">Tormentas</span>
+            <input type="checkbox" v-model="checkedStorm" class="checkbox checkbox-xs" />
+          </label>
+          <label class="label cursor-pointer">
+            <img src="../assets/Rain.png" alt="nieblas" width="28" height="28">
+            <span class="label-text">Lluvias</span>
+            <input type="checkbox" v-model="checkedRain" class="checkbox checkbox-xs" />
           </label>
         </div>
         <div class="text-center mt-4">

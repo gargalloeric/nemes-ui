@@ -62,7 +62,10 @@ function setMarker(type: string, coords: L.LatLng, message : string){
     case "Vientos":
       linkImage = 'src/assets/Wind.png';
       latLngBounds = L.latLngBounds([[coords.lat -0.05, coords.lng +0.05], [coords.lat +0.05, coords.lng +0.2]]);
-
+      break;
+    case "Tormentas":
+      linkImage = 'src/assets/Storm.png';
+      latLngBounds = L.latLngBounds([[coords.lat -0.05, coords.lng -0.075], [coords.lat -0.15, coords.lng +0.075]]);
       break;
   }
   if (linkImage != null){
