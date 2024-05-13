@@ -78,31 +78,31 @@ function isSomethingSelected() {
         <div class="form-control">
           <label class="label cursor-pointer">
             <span class="label-text">Costeros</span>
-            <input type="checkbox" v-model="checkedCoast" class="checkbox" />
+            <input type="checkbox" v-model="checkedCoast" class="checkbox checkbox-xs" />
           </label>
           <label class="label cursor-pointer">
             <span class="label-text">Vientos</span>
-            <input type="checkbox" v-model="checkedWind" class="checkbox" />
+            <input type="checkbox" v-model="checkedWind" class="checkbox checkbox-xs" />
           </label>
           <label class="label cursor-pointer">
             <span class="label-text">Nevadas</span>
-            <input type="checkbox" v-model="checkedSnow" class="checkbox" />
+            <input type="checkbox" v-model="checkedSnow" class="checkbox checkbox-xs" />
           </label>
           <label class="label cursor-pointer">
             <span class="label-text">Lluvias</span>
-            <input type="checkbox" v-model="checkedRain" class="checkbox" />
+            <input type="checkbox" v-model="checkedRain" class="checkbox checkbox-xs" />
           </label>
           <label class="label cursor-pointer">
             <span class="label-text">Tormentas</span>
-            <input type="checkbox" v-model="checkedStorm" class="checkbox" />
+            <input type="checkbox" v-model="checkedStorm" class="checkbox checkbox-xs" />
           </label>
           <label class="label cursor-pointer">
             <span class="label-text">Nieblas</span>
-            <input type="checkbox" v-model="checkedFog" class="checkbox" />
+            <input type="checkbox" v-model="checkedFog" class="checkbox checkbox-xs" />
           </label>
         </div>
         <div class="text-center mt-4">
-          <button class="btn btn-outline" :class="{ 'btn-success': isSaved }">
+          <button class="btn btn-outline btn-wide" :class="{ 'btn-success': isSaved }">
             <span v-if="!isSaved">Guardar</span>
             <span v-if="isSaved">Guardado</span>
           </button>
@@ -110,9 +110,7 @@ function isSomethingSelected() {
       </form>
       <p v-if="notSelected" class="mt-4 text-red-500"> Selecciona evento y zona en el mapa.</p>
     </div>
-    <div class="flex flex-col mr-4 ml-4">
-    </div>
-    <Map class="rounded-lg h-screen" :init-lat-lang="initLatLang" :zoom="initZoom" ref="map"></Map>
+    <Map class="rounded-lg h-screen mx-5" :init-lat-lang="initLatLang" :zoom="initZoom" ref="map"></Map>
   </div>
 
 </template>
