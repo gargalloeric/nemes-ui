@@ -20,4 +20,6 @@ export async function saveZoneOfInterest(selected : Coordinates[], selectedEvent
             eventsName: selectedEvents
         })
     });
+
+    return resp;
 }

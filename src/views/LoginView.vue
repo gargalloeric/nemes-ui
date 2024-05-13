@@ -29,6 +29,7 @@ async function handleFormQuery(form: LoginQuery) {
     if (!resp.ok) {
         showError.value = true;
     } else {
+        showError.value = false;
         const token = await resp.text()
         tokenStore.setToken(token)
         userStore.loadUser()
