@@ -120,7 +120,7 @@ async function query() {
           </label>
         </div>
         <div class="text-center mt-4">
-          <button class="btn btn-outline">Consultar</button>
+          <button class="btn btn-outline btn-wide">Consultar</button>
         </div>
       </form>
     </div>
