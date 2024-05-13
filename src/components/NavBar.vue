@@ -24,7 +24,7 @@ const userStore = useUserStore()
                     </a>
                 </RouterLink>
 
-                <div v-else class="dropdown">
+                <div v-else class="dropdown dropdown-end">
                     <div tabindex="0" role="button" class="btn m-1">{{ userStore.user?.username }}</div>
                     <ul tabindex="0" class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-52">
                         <li><RouterLink to="/registerZoneOfInterest">Añadir suscripción</RouterLink></li>
