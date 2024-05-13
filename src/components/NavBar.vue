@@ -25,7 +25,7 @@ const userStore = useUserStore()
                     </a>
                 </RouterLink>
 
-                <div class="dropdown">
+                <div v-else class="dropdown">
                     <div tabindex="0" role="button" class="btn m-1">{{ userStore.user?.email }}</div>
                     <ul tabindex="0" class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-52">
                         <li><a>Suscripciones</a></li>
