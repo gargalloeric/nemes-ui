@@ -48,7 +48,7 @@ async function save() {
         isSaved.value = false;
         clearCheckboxes();
         map.value.clearAll()
-      }, 3000)
+      }, 1000)
     }
   }
 }

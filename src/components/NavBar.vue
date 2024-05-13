@@ -27,7 +27,7 @@ const userStore = useUserStore()
                 <div v-else class="dropdown">
                     <div tabindex="0" role="button" class="btn m-1">{{ userStore.user?.username }}</div>
                     <ul tabindex="0" class="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><a>Añadir suscripción</a></li>
+                        <li><RouterLink to="/registerZoneOfInterest">Añadir suscripción</RouterLink></li>
                         <li><a class="text-red-600">Cerrar Sesión</a></li>
                     </ul>
                 </div>
