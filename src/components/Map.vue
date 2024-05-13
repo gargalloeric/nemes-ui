@@ -83,24 +83,28 @@ function setMarker(type: string, coords: L.LatLng, message : string){
       break;
   }*/
   let linkImage: string;
+  let latLngBounds = L.latLngBounds([coords, [coords.lat + 0.1, coords.lng + 0.15]]);
   switch(type){
 
     case "Lluvias":
-      linkImage = 'src/assets/Rain.png'
+      linkImage = 'src/assets/Rain.png';
+      latLngBounds = L.latLngBounds([[coords.lat -0.05, coords.lng -0.075], [coords.lat +0.05, coords.lng +0.075]]);
       break;
     case "Nevadas":
-      linkImage = 'src/assets/Snow.png'
+      linkImage = 'src/assets/Snow.png';
+      latLngBounds = L.latLngBounds([[coords.lat + 0.05 , coords.lng -0.075], [coords.lat + 0.15, coords.lng +0.075]]);
       break;
     case "Nieblas":
-      linkImage = 'src/assets/Fog.png'
+      linkImage = 'src/assets/Fog.png';
+      latLngBounds = L.latLngBounds([[coords.lat -0.05, coords.lng -0.2], [coords.lat +0.05, coords.lng -0.05]]);
       break;
     case "Vientos":
-      linkImage = 'src/assets/Wind.png'
+      linkImage = 'src/assets/Wind.png';
+      latLngBounds = L.latLngBounds([[coords.lat -0.05, coords.lng +0.05], [coords.lat +0.05, coords.lng +0.2]]);
+
       break;
   }
   if (linkImage != null){
-    let latLngBounds = L.latLngBounds([coords, [coords.lat + 0.1, coords.lng + 0.15]]);
-
     let imageOverlay = L.imageOverlay(linkImage, latLngBounds, {
       opacity: 1,
       interactive: true
