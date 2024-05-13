@@ -5,6 +5,7 @@ import { LoginQuery } from '../queries/LoginQuery';
 import { BASE_URL } from '../utils/Constants';
 import { useTokenStore } from '../stores/token';
 import { useUserStore } from "../stores/user";
+import router from '../router';
 
 const showError: Ref<boolean> = ref(false)
 const tokenStore = useTokenStore()
@@ -31,6 +32,7 @@ async function handleFormQuery(form: LoginQuery) {
         const token = await resp.text()
         tokenStore.setToken(token)
         userStore.loadUser()
+        router.push({path: '/'})
     }
 }
 </script>
