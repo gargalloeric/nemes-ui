@@ -126,6 +126,4 @@ async function query() {
     </div>
     <Map class="rounded-lg h-screen mx-5" :init-lat-lang="initLatLang" :zoom="initZoom" ref="map"></Map>
   </div>
-
-  <Footer></Footer>
 </template>
