@@ -16,6 +16,7 @@ const layerGroup = ref<LayerGroup>();
 let geoJson;
 
 let selected : [] = [];
+let images: [] = [];
 
 onMounted(() => {
    map.value = L.map("map", {
@@ -73,6 +74,8 @@ function setMarker(type: string, coords: L.LatLng, message : string){
       opacity: 1,
       interactive: true
     }).addTo(map.value);
+
+    images.push(imageOverlay);
   }
 
 }
@@ -136,11 +139,18 @@ function clearAll(){
   selected.splice(0, selected.length);
 }
 
+function clearMarkers(){
+  for (let image of images){
+    map.value?.removeLayer(image);
+  }
+}
+
 defineExpose({
   setMarker,
   setZones,
   getSelected,
-  clearAll
+  clearAll,
+  clearMarkers
 });
 
 </script>

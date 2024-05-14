@@ -36,30 +36,41 @@ onMounted(async () => {
 async function query() {
   console.log(EnumDisasters.Fire);
   datesError.value = false;
+  let events: string[] = [];
   try {
     if (new Date(initialDate) > new Date(lastDate)) {
       datesError.value = true;
       return;
     }
-    if (checkedFire) {
-      let fires: Disaster[] = await getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Fire);
-      for (const fire of fires) {
-        map.value.setMarker(EnumDisasters.Fire, latLng(fire.location.lat, fire.location.lon), fire.description)
-      }
+    switch (true){
+      case checkedRain.value:
+        events.push("LLuvias");
+        break;
+      case checkedCoast.value:
+        events.push("Costeros");
+        break;
+      case checkedWind.value:
+        events.push("Vientos");
+        break;
+      case checkedFog.value:
+        events.push("Nieblas");
+        break;
+      case checkedSnow.value:
+        events.push("Nevadas");
+        break;
+      case checkedStorm.value:
+        events.push("Tormentas");
+        break;
     }
-    if (checkedMeteo) {
-      let meteos: Disaster[] = await getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Meteorological);
-      for (const meteo of meteos) {
-        map.value.setMarker(EnumDisasters.Meteorological, latLng(meteo.location.lat, meteo.location.lon), meteo.description)
-      }
-    }
-    if (checkedOthers) {
-      let others: Disaster[] = await getDisasters(new Date(initialDate), new Date(lastDate), EnumDisasters.Other);
-      for (const other of others) {
-        map.value.setMarker(EnumDisasters.Other, latLng(other.location.lat, other.location.lon), other.description)
-      }
+
+    let disasters: Disaster[] = await getDisasters(new Date(initialDate).toDateString(), new Date(lastDate).toDateString(), events);
+    console.log(new Date(initialDate));
+    map.value.clearMarkers();
+    for (const disaster of disasters) {
+      //map.value.setMarker(disaster.type, latLng([disaster.location.lat, disaster.location.lon]), disaster.name);
     }
   }
+
   catch (error) {
     unexpectedError.value = true;
     console.log(error);

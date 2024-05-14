@@ -7,14 +7,14 @@ import { Coordinates } from "../model/Coordinates.ts";
 const initLatLang: L.LatLngExpression = [40.415361175393144, -3.701523140526825];
 const initZoom: number = 6;
 const map = ref();
-const notSelected: Ref<boolean> = ref(false);
-const checkedCoast: Ref<boolean> = ref(false);
-const checkedWind: Ref<boolean> = ref(false);
-const checkedSnow: Ref<boolean> = ref(false);
-const checkedRain: Ref<boolean> = ref(false);
-const checkedStorm: Ref<boolean> = ref(false);
-const checkedFog: Ref<boolean> = ref(false);
-const isSaved: Ref<boolean> = ref(false);
+const notSelected: Ref<boolean> = ref(true);
+const checkedCoast: Ref<boolean> = ref(true);
+const checkedWind: Ref<boolean> = ref(true);
+const checkedSnow: Ref<boolean> = ref(true);
+const checkedRain: Ref<boolean> = ref(true);
+const checkedStorm: Ref<boolean> = ref(true);
+const checkedFog: Ref<boolean> = ref(true);
+const isSaved: Ref<boolean> = ref(true);
 
 onMounted(async () => {
   map.value.setZones();
