@@ -29,7 +29,7 @@ export async function getRecentDisasters(): Promise<Disaster[]>{
 export async function getDisasters(initialDate: string, finishDate: string, events: string[]): Promise<Disaster[]>{
   const FILTERED_URL: string = `${BASE_URL}/catastrophe/filtered`;
   const resp = await fetch(FILTERED_URL, {
-      method: 'GET',
+      method: 'POST',
       headers: {
           'Content-Type': 'application/json'
       },

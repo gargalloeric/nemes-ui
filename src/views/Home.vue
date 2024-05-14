@@ -44,7 +44,7 @@ async function query() {
     }
     switch (true){
       case checkedRain.value:
-        events.push("LLuvias");
+        events.push("Lluvias");
         break;
       case checkedCoast.value:
         events.push("Costeros");
@@ -62,12 +62,12 @@ async function query() {
         events.push("Tormentas");
         break;
     }
-
-    let disasters: Disaster[] = await getDisasters(new Date(initialDate).toDateString(), new Date(lastDate).toDateString(), events);
-    console.log(new Date(initialDate));
+    console.log(formatDate(new Date(initialDate)));
+    let disasters: Disaster[] = await getDisasters(formatDate(new Date(initialDate)), formatDate(new Date(lastDate)), events);
+    console.log(disasters);
     map.value.clearMarkers();
     for (const disaster of disasters) {
-      //map.value.setMarker(disaster.type, latLng([disaster.location.lat, disaster.location.lon]), disaster.name);
+      map.value.setMarker(disaster.type, latLng([disaster.location.lat, disaster.location.lon]), disaster.name);
     }
   }
 
@@ -75,6 +75,13 @@ async function query() {
     unexpectedError.value = true;
     console.log(error);
   }
+}
+
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 </script>

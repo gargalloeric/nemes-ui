@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import L, {geoJSON, LatLng, latLng, LayerGroup, layerGroup, LeafletMouseEvent, Map} from "leaflet";
 import "leaflet/dist/leaflet.css";
-import {onMounted, ref} from 'vue';
+import {onMounted, ref, toRaw} from 'vue';
 import {EnumDisasters} from "../model/EnumDisasters.ts";
 import {zonesData} from "../utils/data.ts";
 import {Coordinates} from "../model/Coordinates.ts";
@@ -16,7 +16,7 @@ const layerGroup = ref<LayerGroup>();
 let geoJson;
 
 let selected : [] = [];
-let images: [] = [];
+let images: L.ImageOverlay[] = [];
 
 onMounted(() => {
    map.value = L.map("map", {
@@ -30,7 +30,7 @@ onMounted(() => {
     maxZoom: 18,
   }).addTo(map.value);
 
-  layerGroup.value = L.layerGroup().addTo(map.value);
+  layerGroup.value = L.layerGroup().addTo(toRaw(map.value));
 
 });
 
@@ -69,12 +69,12 @@ function setMarker(type: string, coords: L.LatLng, message : string){
       latLngBounds = L.latLngBounds([[coords.lat -0.05, coords.lng -0.075], [coords.lat -0.15, coords.lng +0.075]]);
       break;
   }
-  if (linkImage != null){
+  if (linkImage != null && layerGroup.value){
     let imageOverlay = L.imageOverlay(linkImage, latLngBounds, {
       opacity: 1,
       interactive: true
-    }).addTo(map.value);
-
+    });
+    toRaw(layerGroup.value)?.addLayer(imageOverlay);
     images.push(imageOverlay);
   }
 
@@ -83,7 +83,7 @@ function setMarker(type: string, coords: L.LatLng, message : string){
 function setZones(){
   geoJson = L.geoJson(zonesData, {
     onEachFeature: onEachFeature
-  }).addTo(map.value);
+  }).addTo(toRaw(map.value));
 }
 
 function highlightFeature(e) {
@@ -140,9 +140,11 @@ function clearAll(){
 }
 
 function clearMarkers(){
-  for (let image of images){
-    map.value?.removeLayer(image);
-  }
+  /*for (let image of images){
+    image.remove();
+  }*/
+
+  toRaw(layerGroup.value)?.clearLayers();
 }
 
 defineExpose({
