@@ -7,7 +7,7 @@ import { Coordinates } from "../model/Coordinates.ts";
 const initLatLang: L.LatLngExpression = [40.415361175393144, -3.701523140526825];
 const initZoom: number = 6;
 const map = ref();
-const notSelected: Ref<boolean> = ref(true);
+const notSelected: Ref<boolean> = ref(false);
 const checkedCoast: Ref<boolean> = ref(true);
 const checkedWind: Ref<boolean> = ref(true);
 const checkedSnow: Ref<boolean> = ref(true);
