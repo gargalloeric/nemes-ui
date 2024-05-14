@@ -14,7 +14,7 @@ const checkedSnow: Ref<boolean> = ref(true);
 const checkedRain: Ref<boolean> = ref(true);
 const checkedStorm: Ref<boolean> = ref(true);
 const checkedFog: Ref<boolean> = ref(true);
-const isSaved: Ref<boolean> = ref(true);
+const isSaved: Ref<boolean> = ref(false);
 
 onMounted(async () => {
   map.value.setZones();
