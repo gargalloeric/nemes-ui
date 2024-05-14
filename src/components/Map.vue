@@ -68,6 +68,10 @@ function setMarker(type: string, coords: L.LatLng, message : string){
       linkImage = 'src/assets/Storm.png';
       latLngBounds = L.latLngBounds([[coords.lat -0.05, coords.lng -0.075], [coords.lat -0.15, coords.lng +0.075]]);
       break;
+    case "Costeros":
+      linkImage = 'src/assets/YellowDot.png';
+      latLngBounds = L.latLngBounds([[coords.lat -0.05, coords.lng -0.075], [coords.lat +0.05, coords.lng +0.075]]);
+      break;
   }
   if (linkImage != null && layerGroup.value){
     let imageOverlay = L.imageOverlay(linkImage, latLngBounds, {
