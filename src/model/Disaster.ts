@@ -19,7 +19,7 @@ export class Disaster{
     danger: number;
     initialDate: Date;
     lastDate: Date;
-    type: EnumDisasters;
+    type: string;
     location: Coordinates;
     radius: number;
 
